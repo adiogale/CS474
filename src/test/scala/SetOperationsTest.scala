@@ -52,4 +52,13 @@ class SetOperationsTest extends AnyFlatSpec with Matchers {
     Variable("x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (3,2,4)
   }
 
+  behavior of "macro"
+  it should "Set a macro and retreive it to use in an operation" in {
+    Assign("x", CreateSet(1,2)).eval
+    var varName = 9
+    SetMacro("insert", Insert("x", ValueOf(varName))).eval
+    varName = 10
+    Assign("r", GetMacro("insert")).eval
+    Variable("r").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (1,2,9)
+  }
 }

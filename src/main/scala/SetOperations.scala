@@ -20,8 +20,8 @@ object SetOperations {
     case Symmetric_difference(setName1: SetOperations, setName2: SetOperations)
     case Product(setName1: SetOperations, setName2: SetOperations)
     case CheckElement(setName: SetOperations, element: SetOperations)
-    case Macro(macroName: String, macroValue: SetOperations)
-//    case Macro(macroName:String)
+    case SetMacro(macroName: String, macroValue: SetOperations)
+    case GetMacro(macroName:String)
 
     def eval: Any =
       this match
@@ -82,18 +82,19 @@ object SetOperations {
           else
             "Variable Name is not a set"
 
-        case Macro(macroName, macroValue) =>
+        case SetMacro(macroName, macroValue) =>
           macroMap += (macroName -> macroValue)
 
-//        case Macro(macroName) =>
-//          macroMap(macroName)
+        case GetMacro(macroName) =>
+          macroMap(macroName).eval
 
   @main def main(): Unit =
     import SetOperations.*
-    Assign("x", CreateSet(1,2,3)).eval
-    Insert("x", ValueOf(4)).eval
-    Assign("y", CreateSet(3,4)).eval
-    Insert("y", Variable("x")).eval
-    println("y: " + Variable("y").eval + "\n")
-    println("x: " + Variable("x").eval)
+    Assign("x", CreateSet(1,2)).eval
+    var varName = 9
+    SetMacro("insert", Insert("x", ValueOf(varName))).eval
+    varName = 10
+    Assign("r", GetMacro("insert")).eval
+    print(Variable("r").eval)
+//    Variable("r").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (1,2,10)
 }
