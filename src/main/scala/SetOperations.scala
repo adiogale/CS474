@@ -14,7 +14,6 @@ object SetOperations {
   enum SetOperations:
     case ValueOf(varName: Any)
     case Variable(varName: String)
-    case Set(varName: mutable.Set[Any])
     case Assign(varName: String, element: SetOperations)
     case Insert(varName: String, element: SetOperations)
     case CreateSet(elements: Any*)
@@ -55,7 +54,7 @@ object SetOperations {
             val new_bindings = scopeBindings(curScope.head)(varName).asInstanceOf[mutable.Set[Any]] + element.eval.asInstanceOf[Any]
             scopeBindings(curScope.head) += (varName -> new_bindings)
             new_bindings
-          //Else create a new set and add element to the set
+          // Else create a new set and add element to the set
           else
             val new_bindings = mutable.Set(element.eval)
             scopeBindings(curScope.head) += (varName -> new_bindings)
@@ -130,4 +129,6 @@ object SetOperations {
           //Restore to default global scope.
           curScope.remove(0)
           curScope += "global"
+  @main def rinIf(): Unit =
+    import SetOperations.*
 }

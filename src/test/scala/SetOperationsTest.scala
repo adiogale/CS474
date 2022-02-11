@@ -14,6 +14,14 @@ class SetOperationsTest extends AnyFlatSpec with Matchers {
     Variable("x").eval.asInstanceOf[mutable.Set[Any]]  should contain allOf (1,2,3)
   }
 
+  behavior of "union with one element"
+  it should "union of 2 sets" in {
+    Assign("x", CreateSet(1)).eval
+    Assign("y", CreateSet(3)).eval
+    Assign("z", Union(Variable("x"), Variable("y"))).eval
+    Variable("z").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (1,3)
+  }
+
   behavior of "intersection"
   it should "show only common elements to both sets" in {
     Assign("x", CreateSet(1,2,3)).eval
