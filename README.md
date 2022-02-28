@@ -6,5 +6,5 @@ Homework of course CS474 - OOLE
 2. Must have Java 17 installed and active in IntelliJ.
 3. Must install Scala SDK and sbt plugins in IintelliJ.
 
-## SetOperations Documentation [a relative link](SetOperations.md)
-## ClassOperations Documentation [a relative link](ClassOperations.md)
+## [SetOperations Documentation](SetOperations.md)
+## [ClassOperations Documentation](ClassOperations.md)
