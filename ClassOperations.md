@@ -1,5 +1,5 @@
 # CS474 - Aditya Ogale - 678453407
-Homework 1 of course CS474 - OOLE
+Homework 2 of course CS474 - OOLE
 
 ## Imports
 To import the package, add following import statement.
