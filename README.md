@@ -1,4 +1,4 @@
-# CS474AdityaOgale
+# CS474 - Aditya Ogale - 678453407
 Homework of course CS474 - OOLE
 
 ## Pre-requisites
