@@ -75,6 +75,7 @@ import ClassOperations.ClassDefinition.*
     - Class1 extends class2. All fields and methods will be added to the class1.
     - If methods from both classes have same name, method in class 2 will be overridden and class1 method will be used.
     - Constructor of both the classes will be called to initialize all the fields. If a field has same name, value of constructor of class1 will be used.
+    - Extending from multiple classes is not allowed. Can only extend one class.
     ```
     // c2 extends c1.
     Extend("c2", "c1").eval
