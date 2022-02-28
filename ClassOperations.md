@@ -85,3 +85,4 @@ import ClassOperations.ClassDefinition.*
     InnerClass("c2", ClassDef("c1", Fields("x", "y"), Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2))),
         Method("m1", Assign("x", CreateSet(1, 2, 3))), Method("m2", Insert("x", ValueOf(9))))).eval
     ```
+    - Creating objects and calling methods of inner classes is not implemented.
