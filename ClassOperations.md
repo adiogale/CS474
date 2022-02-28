@@ -29,6 +29,7 @@ import ClassOperations.ClassDefinition.*
     
 4. Constructor(fields: Tuple*):
     - This returns set of given tuples with format (field, value).
+    - This is a default constructor i.e. parameters can not be passed to the constructor.
     ```
     // Constructor initializes c, y and x to given values. Beware, even if c is not present in class, it will not throw any error nor will it add the field.
     Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2)))
@@ -36,6 +37,7 @@ import ClassOperations.ClassDefinition.*
     
 5. Method(methodName: String, operations: SetOperations*):
     - Returns key value pair of method name and set of all SetOperations.
+    - Implementation of passing Parameters to the methods is not completed.
     ```
     // This will return the m1 -> Assign("x", CreateSet(1,2,3)). This is non-parameterized method implementation. Parameterized is not implemented.
     Method("m1", Assign("x", CreateSet(1, 2, 3)))
