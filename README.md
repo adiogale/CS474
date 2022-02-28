@@ -12,5 +12,5 @@ Homework of course CS474 - OOLE
   - Now run command ```sbt test``` to run the tests. 
   - This command will run all the tests in tests folder.
 
-## [SetOperations Documentation](SetOperation.md)
+## [SetOperations Documentation](SetOperation.md) (for homework 1, refer this documentation)
 ## [ClassOperations Documentation](ClassOperations.md) (for homework 2, refer this documentation)
