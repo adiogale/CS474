@@ -13,4 +13,4 @@ Homework of course CS474 - OOLE
   - This command will run all the tests in tests folder.
 
 ## [SetOperations Documentation](SetOperation.md)
-## [ClassOperations Documentation](ClassOperations.md)
+## [ClassOperations Documentation](ClassOperations.md) (for homework 2, refer this documentation)
