@@ -39,6 +39,7 @@ import ClassOperations.ClassDefinition.*
     ```
     
 6. NewObject(objectName: String, className: String):
+    - Class with className must be defined beforehand.
     - Returns new object with objectName and className.
     - It will call the constructor internally and all methods will be available to the object with fields initialized.
     - Default value of all fields will be 0.
@@ -55,6 +56,7 @@ import ClassOperations.ClassDefinition.*
     ```
     
 8. CallMethod(methodName: String, objectName: String):
+    - NewObject must be called beforehand to create object.
     - Calls the method "methodName" for the object "objectName".
     - Will run all the SetOperations internally and change values of fields if necessary.
     - This will impact only the object called.
@@ -64,6 +66,7 @@ import ClassOperations.ClassDefinition.*
     ```
     
 9. Extend(class1: String, class2: String):
+    - Both classes must be defined beforehand.
     - Class1 extends class2. All fields and methods will be added to the class1.
     - If methods from both classes have same name, method in class 2 will be overridden and class1 method will be used.
     - Constructor of both the classes will be called to initialize all the fields. If a field has same name, value of constructor of class1 will be used.
