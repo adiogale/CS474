@@ -28,6 +28,7 @@ object SetOperations {
     case GetMacro(macroName:String)
     case Scope(scopeName: String, varName: String, element: SetOperations)
     case getSetFromScope(scopeName: String, setName: String)
+    case getScope(scopeName: String)
 
     def eval: Any =
       this match
@@ -107,6 +108,10 @@ object SetOperations {
           //Returns set from given scope.
           scopeBindings(scopeName)(setName)
 
+        case getScope(scopeName)=>
+          scopeBindings(scopeName)
+
+
         case Scope(scopeName, varName, element) =>
           // If scope is not yet present, create one.
           if (!scopeBindings.contains(scopeName)){
@@ -129,6 +134,7 @@ object SetOperations {
           //Restore to default global scope.
           curScope.remove(0)
           curScope += "global"
+
   @main def rinIf(): Unit =
     import SetOperations.*
 }
