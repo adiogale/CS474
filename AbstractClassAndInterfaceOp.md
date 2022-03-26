@@ -10,7 +10,7 @@ To import the package, add following import statement.
 import ClassOperations.ClassDefinition.*
 ```
 
-## Methods and the functionality
+## Methods and the functionalit
 1. eval:
     - Use this method to evaluate the ClassDefinition expression.
  
