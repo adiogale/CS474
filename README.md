@@ -14,4 +14,4 @@ Homework of course CS474 - OOLE
 
 ## [SetOperations Documentation](SetOperation.md) (for homework 1, refer this documentation)
 ## [Updated ClassOperations Documentation](ClassOperations.md) (for homework 3, refer this documentation)
-## [Documentation for abstract class and interfaces](AbstractClassAndInterfaceOp.md) (for homework 2, refer this documentation)
+## [Documentation for abstract class and interfaces](AbstractClassAndInterfaceOp.md) (for homework 3, refer this documentation)
