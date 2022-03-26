@@ -25,6 +25,7 @@ import ClassOperations.ClassDefinition.*
     - Creates a mapping of an interface name and its abstract methods. 
     - Can not define a field or a concrete method in current implementation.
     - Constructor is not defined for an interface.
+    - Nested interface can not be implemented in the current implementation.
     ```
     //Creates interface i1 with methods m1 and m2.
     Interface("i1", AbstractMethods("m1", "m2")).eval
