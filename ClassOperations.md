@@ -14,12 +14,14 @@ import ClassOperations.ClassDefinition.*
 1. eval:
     - Use this method to evaluate the ClassDefinition expression.
  
-2. ClassDef(className: String, fields: ClassDefinition, constructor: ClassDefinition, method: ClassDefinition.Method *):
+2. ClassDef(className: String, fields: ClassDefinition, constructor: ClassDefinition,interfaces: ClassDefinition.Implements,
+                    extendsAbstractClass: ClassDefinition.ExtendAbstractClass, method: ClassDefinition.Method *):
     - Creates a class and returns a tuple of className and class definition.
     - Creates a class with given class name, set of fields, one constructor and as many methods as possible.
+    - Class can implement one or more interfaces with interfaces param and extend an abstract class with extendsAbstractClass param.
     ```
     // This will create a class c1, with fields x and y, with given constructor and methods.
-    ClassDef("c1", Fields("x", "y"), Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2))),
+    ClassDef("c1", Fields("x", "y"), Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2))), Implements(), ExtendAbstractClass(),
       Method("m1", Assign("x", CreateSet(1, 2, 3))), Method("m2", Insert("x", ValueOf(9)))).eval
     ```
     
@@ -48,6 +50,7 @@ import ClassOperations.ClassDefinition.*
     - Returns new object with objectName and className.
     - It will call the constructor internally and all methods will be available to the object with fields initialized.
     - Default value of all fields will be 0.
+    - New object of an interface or an abstract class can not be created. Appropriate error message will pop up.
     ```
     // This will create object o1 of class c1.  
     NewObject("o1", "c1").eval
@@ -76,6 +79,7 @@ import ClassOperations.ClassDefinition.*
     - If methods from both classes have same name, method in class 2 will be overridden and class1 method will be used.
     - Constructor of both the classes will be called to initialize all the fields. If a field has same name, value of constructor of class1 will be used.
     - Extending from multiple classes is not allowed. Can only extend one class.
+    - Can extend an abstract class with another abstract class or an abstract class with a concrete class as well.
     ```
     // c2 extends c1.
     Extend("c2", "c1").eval
