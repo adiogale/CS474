@@ -30,28 +30,27 @@ object ClassOperations {
                          abstractMethods: ClassDefinition.AbstractMethods, method: ClassDefinition.Method*)
       case ExtendInterface(interfaceName: String, extendedInterface:String)
       case GetInterface(interfaceName: String)
-      case ExtendAbstrctClass(className1: String, className2: String)
 
       def eval: Any =
         this match {
-
-//          case ExtendAbstractClass(className1, className2) =>
-
           case ExtendInterface(interfaceName, extendedInterface) =>
+            // if the interfaceMapping contains the extended interface only then move forward.
             if(interfaceMapping.contains(extendedInterface)) {
+              // Concats the abstract methods defined in both interfaces
               val setMethods = interfaceMapping(interfaceName).concat(interfaceMapping(extendedInterface)).toSet
               val temp: mutable.ArrayBuffer[String] = mutable.ArrayBuffer[String]()
               for (method <- setMethods) {
                 temp += method
               }
+              //Assigns the new temp list to the interface "interfaceName" as it is the updated methods.
               interfaceMapping(interfaceName) = temp
-            }
+            } // If classMapping contains the extended interface, error message.
             else if(classMapping.contains(extendedInterface)) {
               return "Can not extend a class"
-            }
+            } // If abstractClassMapping contains the extended interface, error message.
             else if (abstractClassMapping.contains(extendedInterface)) {
               return "Can not extend abstract class"
-            }
+            } // General error message.
             else{
               return "Error extending interfaces"
             }
@@ -72,15 +71,19 @@ object ClassOperations {
               }
               val interfaceMethods: mutable.Set[String] = mutable.Set[String]()
               val interfaceImpl = interfaces.eval.asInstanceOf[Seq[String]]
+              // Getting a list of all methods from all interfaces.
               for (interface <- interfaceImpl) {
                 val interfaceDefinedMethods = interfaceMapping(interface)
                 for (methodName <- interfaceDefinedMethods) {
                   interfaceMethods += methodName
                 }
               }
+              // Name of abstract class extended. "" if no class extended.
               val classAbsName = extendsAbstractClass.eval.asInstanceOf[String]
               val flag: mutable.Stack[Boolean] = mutable.Stack[Boolean](false)
+              // If some abstract class is extended,
               if(classAbsName != "") {
+                // Appends the abstract methods from interfaces with abstract methods form abstract class.
                 val absMethodsInAbsClass = abstractClassMapping(classAbsName)("abstractMethods").asInstanceOf[mutable.ArrayBuffer[String]]
                 for(absMethod <- absMethodsInAbsClass) {
                   interfaceMethods += absMethod
@@ -88,16 +91,19 @@ object ClassOperations {
                 flag.pop()
                 flag.push(true)
               }
-
+              // Checks if all the abstract methods are present in the methods defined.
               for (methodInInterface <- interfaceMethods) {
                 if (methodMap.contains(methodInInterface)) {
                   interfaceMethods -= methodInInterface
                 }
               }
+              // If some methods are not defined, error
               if (interfaceMethods.size > 0) {
                 "Implement all methods from all the interfaces and abstract methods from extended abstract class. Methods not implemented: " + interfaceMethods.toString
               }
+              // Else complete the class definition.
               else {
+                // No abstract class extended,
                 if (flag.top == false) {
                   // Mapped flag (which is for inheritance), fields, Constructor and methods to respective fields.
                   val mapping = mutable.Map[String, Any]("flag" -> flag.pop(), "fields" -> fieldList, "methods" -> methodMap,
@@ -105,7 +111,7 @@ object ClassOperations {
                   // Use this map for classMapping.
                   classMapping += (className -> mapping)
                   (className, classMapping(className))
-                }
+                } // Extends other methods, fields, constructor with the current class.
                 else {
                   val methodMapAbs = abstractClassMapping(classAbsName)("methods").asInstanceOf[mutable.Map[String, mutable.Set[SetOperations]]]
                   for ((methodAbs -> methodAbsDef) <- methodMapAbs) {
@@ -126,8 +132,9 @@ object ClassOperations {
               }
 
           case ExtendAbstractClass(className) =>
-            println(className)
-            className
+            if(abstractClassMapping.contains(className)) {
+              className
+            }
 
           case Fields(fields*) =>
             // Return binding of set of all fields passed
@@ -139,11 +146,13 @@ object ClassOperations {
             (methodName -> mutable.Set[SetOperations](operations *))
 
           case NewObject(objectName, className) =>
-            // If classmapping does not contain class name, returns error message
+            // If classMapping does not contain class name, returns error message
             if(!classMapping.contains(className)) {
+              // If it is abstract class appropriate error message
               if(abstractClassMapping.contains(className)) {
                 return "Can not initialize abstract class"
               }
+              // If it is interface appropriate error message
               else if(interfaceMapping.contains(className)) {
                 return "Can not initialize interface"
               }
@@ -222,6 +231,7 @@ object ClassOperations {
 
           //Class1 extends Class2
           case Extend(class1, class2) =>
+            // Flag for class1 = abstract class
             val absFlag: mutable.Stack[Boolean] = mutable.Stack[Boolean](false)
             if (!classMapping.contains((class1)) && abstractClassMapping.contains((class1))) {
               if(abstractClassMapping.contains(class2)){
@@ -229,12 +239,14 @@ object ClassOperations {
                 absFlag.push(true)
               }
             }
+              // error message for interface
             else if(!classMapping.contains((class1)) && interfaceMapping.contains((class1))){
               return "Can not extend interface"
             }
             else if(!classMapping.contains(class1)) {
               return "Error extending class"
             }
+            // if abstract class is extending some other class, update abstractclassmapping.
             if (absFlag.top == true) {
               if(abstractClassMapping(class1)("flag") == false) {
                 // Setting flag true for future reference.
@@ -263,6 +275,7 @@ object ClassOperations {
                 "Can not extend multiple classes"
               }
             }
+              //else update classMapping.
             else {
               // If flag is true, already inherited from some other class.
               if (classMapping(class1)("flag") == false) {
@@ -366,6 +379,7 @@ object ClassOperations {
 
     @main def runIt: Unit = {
       import ClassOperations.ClassDefinition.*
+      print(AbstractMethods("m1", "m2").eval)
     }
 
 }
