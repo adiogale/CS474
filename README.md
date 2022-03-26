@@ -12,6 +12,7 @@ Homework of course CS474 - OOLE
   - Now run command ```sbt test``` to run the tests. 
   - This command will run all the tests in tests folder.
 
-## [SetOperations Documentation](SetOperation.md) (for homework 1, refer this documentation)
-## [Updated ClassOperations Documentation](ClassOperations.md) (for homework 3, refer this documentation)
-## [Documentation for abstract class and interfaces](AbstractClassAndInterfaceOp.md) (for homework 3, refer this documentation)
+## [SetOperations Documentation](SetOperation.md) (for homework 1, refer this documentation).
+## [Updated ClassOperations Documentation](ClassOperations.md) (for homework 3, refer this documentation).
+## [Documentation for abstract class and interfaces](AbstractClassAndInterfaceOp.md) (for homework 3, refer this documentation).
+## [Answeres to the questions posted for homework 3](Answers to the questions posted.md) (for homework 3, refer to this documentation).
