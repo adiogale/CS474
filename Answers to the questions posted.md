@@ -1,98 +1,25 @@
 # CS474 - Aditya Ogale - 678453407
 Homework 2 of course CS474 - OOLE
 
-## Run tests
-Code is written in ```src/main/scala/ClassOperations.scala```. The tests are hosted in file ```src/test/scala/ClassOperationsTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
-
-## Imports
-To import the package, add following import statement.
-```
-import ClassOperations.ClassDefinition.*
-```
-
-## Methods and the functionality
-1. eval:
-    - Use this method to evaluate the ClassDefinition expression.
- 
-2. ClassDef(className: String, fields: ClassDefinition, constructor: ClassDefinition,interfaces: ClassDefinition.Implements,
-                    extendsAbstractClass: ClassDefinition.ExtendAbstractClass, method: ClassDefinition.Method *):
-    - Creates a class and returns a tuple of className and class definition.
-    - Creates a class with given class name, set of fields, one constructor and as many methods as possible.
-    - Class can implement one or more interfaces with interfaces param and extend an abstract class with extendsAbstractClass param.
-    ```
-    // This will create a class c1, with fields x and y, with given constructor and methods.
-    ClassDef("c1", Fields("x", "y"), Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2))), Implements(), ExtendAbstractClass(),
-      Method("m1", Assign("x", CreateSet(1, 2, 3))), Method("m2", Insert("x", ValueOf(9)))).eval
-    ```
-    
-3. Fields(fields: String*):
-    - This returns set of all the fields desired.
-    - Refer to above example, Fields("x", "y") is called.
-    
-4. Constructor(fields: Tuple*):
-    - This returns set of given tuples with format (field, value).
-    - This is a default constructor i.e. parameters can not be passed to the constructor.
-    ```
-    // Constructor initializes c, y and x to given values. Beware, even if c is not present in class, it will not throw any error nor will it add the field.
-    Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2)))
-    ```
-    
-5. Method(methodName: String, operations: SetOperations*):
-    - Returns key value pair of method name and set of all SetOperations.
-    - Implementation of passing Parameters to the methods is not completed.
-    ```
-    // This will return the m1 -> Assign("x", CreateSet(1,2,3)). This is non-parameterized method implementation. Parameterized is not implemented.
-    Method("m1", Assign("x", CreateSet(1, 2, 3)))
-    ```
-    
-6. NewObject(objectName: String, className: String):
-    - Class with className must be defined beforehand.
-    - Returns new object with objectName and className.
-    - It will call the constructor internally and all methods will be available to the object with fields initialized.
-    - Default value of all fields will be 0.
-    - New object of an interface or an abstract class can not be created. Appropriate error message will pop up.
-    ```
-    // This will create object o1 of class c1.  
-    NewObject("o1", "c1").eval
-    ```
-    
-7. Object(objectName: String):
-    - Return the whole object for the user to view.
-    ```
-    // This will return the object map of o1.
-    Object("o1").eval
-    ```
-    
-8. CallMethod(methodName: String, objectName: String):
-    - NewObject must be called beforehand to create object.
-    - Calls the method "methodName" for the object "objectName".
-    - Will run all the SetOperations internally and change values of fields if necessary.
-    - This will impact only the object called.
-    ```
-    // This will call method m1 of object o1.
-    CallMethod("m1", "o1").eval
-    ```
-    
-9. Extend(class1: String, class2: String):
-    - Both classes must be defined beforehand.
-    - Class1 extends class2. All fields and methods will be added to the class1.
-    - If methods from both classes have same name, method in class 2 will be overridden and class1 method will be used.
-    - Constructor of both the classes will be called to initialize all the fields. If a field has same name, value of constructor of class1 will be used.
-    - Extending from multiple classes is not allowed. Can only extend one class.
-    - Can extend an abstract class with another abstract class or an abstract class with a concrete class as well.
-    ```
-    // c2 extends c1.
-    Extend("c2", "c1").eval
-    ```
-10. InnerClass(outerClassName: String, classDef: ClassDefinition.ClassDef):
-    - Creates a inner class inside outerClassName class. 
-    - classDef will be evaluated and assigned inside key "innerClass" of the class map.
-    ```
-    // Will create class c2
-    ClassDef("c2", Fields("z", "y"), Constructor(("z", CreateSet(1, 2)), ("y", ValueOf(2))),
-        Method("m1", Assign("x", CreateSet(1, 2, 6))), Method("m3", Insert("x", ValueOf(8)))).eval
-    // Will create an inner class c1 and the ClassDef will be assigned to "innerClass" of c2 class.
-    InnerClass("c2", ClassDef("c1", Fields("x", "y"), Constructor(("c", CreateSet(1, 2)), ("y", ValueOf(2)), ("x", ValueOf(1, 3, 4, 2))),
-        Method("m1", Assign("x", CreateSet(1, 2, 3))), Method("m2", Insert("x", ValueOf(9))))).eval
-    ```
-    - Creating objects and calling methods of inner classes is not implemented.
+- Can a class/interface inherit from itself?
+    - A class can not extend itself in Java. In my current implementation, I have applied a check with the same. It will show error message.
+- Can an interface inherit from an abstract class with all pure methods?
+    - No. In my implementtion, Interface can not inherit a class. If tried to do so, it will show an error.
+- Can an interface implement another interface?
+    - No. In my implementtion, Interface can not implement an interface. If tried to do so, it will show an error.
+- Can a class implement two or more different interfaces that declare methods with exactly the same signatures?
+    - Yes, a class can implement two two interfaces with the same method signature but that method should be implemented only once in the class. 
+    - Since return type of a method is not defined in my implementation, a set will be created of all the methods defined in all the interfaces and then check if the those methods are implemented or not. If not, error message will be shown.
+- Can an abstract class inherit from another abstract class and implement interfaces where all interfaces and the abstract class have methods with the same signatures?
+    - Yes, since the signature is same, the concrete class must have implementation of the method only once. In my implementation, it is the same.
+- Can an abstract class implement interfaces?
+    - Yes. If the methods of the interface are not defined, whichever class inherits the abstract must have the implementation of remaining methods.
+    - In the current implementation, all the abstract methods are clubbed together and checked if the methods are implemented or not.
+- Can a class implement two or more interfaces that have methods whose signatures differ only in return types? 
+    - If two interfaces contain a method with the same signature but different return types, then we can not implement both the interfaces at the same time.
+    - In the current implementation, return types for the methods are not defined. 
+- Can an abstract class inherit from a concrete class?
+    - Yes. In the current implementation as well, the abstract class can extend concrete class. 
+- Can an abstract class/interface be instantiated as anonymous concrete classes?
+    - No. Interface or abstract class can not be instantiated. 
+    - In the current implementation, it will show error message.
