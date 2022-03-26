@@ -1,5 +1,5 @@
 # CS474 - Aditya Ogale - 678453407
-Homework 2 of course CS474 - OOLE
+Homework 3 of course CS474 - OOLE
 
 - Can a class/interface inherit from itself?
     - A class can not extend itself in Java. In my current implementation, I have applied a check with the same. It will show error message.
