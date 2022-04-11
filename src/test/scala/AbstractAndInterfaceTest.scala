@@ -88,4 +88,10 @@ class AbstractAndInterfaceTest extends AnyFlatSpec with Matchers {
       Method("m1", Insert("a", ValueOf(1))), Method("m4", Insert("c", ValueOf(5)))).eval shouldEqual
       "Implement all methods from all the interfaces and abstract methods from extended abstract class. Methods not implemented: HashSet(m3)"
   }
+  behavior of "Class extending itself"
+  it should "Give error message" in {
+    ClassDef("c7", Fields("a", "b", "c"), Constructor(("c", CreateSet(1,2,3)), ("a", CreateSet(5,6))), Implements(), ExtendAbstractClass("abs2"),
+      Method("m1", Insert("a", ValueOf(1))), Method("m4", Insert("c", ValueOf(5)))).eval
+    Extend("c7", "c7").eval shouldEqual "Class can not extend itself."
+  }
 }

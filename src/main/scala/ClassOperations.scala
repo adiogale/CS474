@@ -133,7 +133,9 @@ object ClassOperations {
 
           case ExtendAbstractClass(className) =>
             if(abstractClassMapping.contains(className)) {
-              className
+              return className
+            } else {
+              return ""
             }
 
           case Fields(fields*) =>
@@ -231,6 +233,10 @@ object ClassOperations {
 
           //Class1 extends Class2
           case Extend(class1, class2) =>
+            //Check if class1 == class2
+            if (class1 == class2) {
+              return "Class can not extend itself."
+            }
             // Flag for class1 = abstract class
             val absFlag: mutable.Stack[Boolean] = mutable.Stack[Boolean](false)
             if (!classMapping.contains((class1)) && abstractClassMapping.contains((class1))) {
@@ -379,7 +385,6 @@ object ClassOperations {
 
     @main def runIt: Unit = {
       import ClassOperations.ClassDefinition.*
-      print(AbstractMethods("m1", "m2").eval)
     }
 
 }
