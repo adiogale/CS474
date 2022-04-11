@@ -80,6 +80,7 @@ import ClassOperations.ClassDefinition.*
     - For control to move to Catch block, a ThrowExpression must be used in Try block. 
     - If ThrowExpression is used in Try block, then all subsequent statements are skipped and it will be moved to catch.
     - Catch block prints the reason of the exception by default and then evaluates the catchExp. At the end, it will return the reason of the exception.
+    - This case can be nested inside each other. The control will always move to the catch block.
     
     ```
     // try-catch block. It will try to evaluate Try block. If Throw is used in it, control will move to Catch.
