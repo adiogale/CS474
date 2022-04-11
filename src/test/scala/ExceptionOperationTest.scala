@@ -92,4 +92,27 @@ class ExceptionOperationTest extends AnyFlatSpec with Matchers {
     Variable("x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf(1,2,3,100,-1)
     Variable("y").eval.asInstanceOf[mutable.Set[Any]] should contain allOf(1,2,3,-100)
   }
+
+  behavior of "Nested try-catch"
+  it should "call catch of all outer try-catch blocks if exception occurs in inner try-catch block" in {
+    ExceptionClassDef("c1", "Termination due to exhaustion").eval
+    Assign("x", CreateSet(1,2,3)).eval
+    var Exp = TryCatch(
+      Try(
+        Insert("x", ValueOf(4)),
+        TryCatch(
+          Try(
+            Insert("x", ValueOf(5)),
+            ThrowExpression("c1", "Inner exception"),
+            Insert("x", ValueOf(6))
+          ),
+          Catch(Insert("x", ValueOf(98)))
+        ),
+        Insert("x", ValueOf(97))
+      ),
+      Catch(Insert("x", ValueOf(99))))
+    println(Exp)
+    Exp.eval
+    Variable("x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf(1,2,3,98,99)
+  }
 }

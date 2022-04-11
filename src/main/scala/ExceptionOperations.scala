@@ -15,6 +15,7 @@ object ExceptionOperations {
   private val exception: mutable.Stack[Any] = mutable.Stack()
   // Flag to eliminate stand-alone use of Try or Catch
   private val TryCatchFlag: mutable.Stack[Boolean] = mutable.Stack[Boolean](false)
+  private val TryStack: mutable.Stack[Integer] = mutable.Stack[Integer]()
 
   enum ExceptionClass:
     case ExceptionClassDef(classDef: String, reason: String)
@@ -73,26 +74,31 @@ object ExceptionOperations {
 
         //Try-catch construct
         case TryCatch(tryExp, catchExp) =>
+          TryStack.push(1)
           TryCatchFlag.push(true)
           // Evaluate the try part
           val p = tryExp.eval
           // If Throw has been called, evaluate the catch part
           if (flag.top == 1) {
             // The className is obtained from exception.
-            val className = exception.pop().asInstanceOf[String]
+            val className = exception.top.asInstanceOf[String]
             // Prints the reason of the exception anyway.
             println("Exception occurred: "
               + exceptionMap(className).asInstanceOf[String])
             //Evaluates the catch expression
             catchExp.eval
             // Resets the flag
-            flag.pop()
+            TryStack.pop()
+            if(TryStack.length == 0) {
+              flag.pop()
+            }
             TryCatchFlag.pop()
             // Returns the reason
             exceptionMap(className).asInstanceOf[String]
           }
           // If Throw is not called, return the try part
           else {
+            TryStack.pop()
             TryCatchFlag.pop()
             p
           }
