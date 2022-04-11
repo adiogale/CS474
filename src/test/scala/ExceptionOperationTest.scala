@@ -113,6 +113,6 @@ class ExceptionOperationTest extends AnyFlatSpec with Matchers {
       Catch(Insert("x", ValueOf(99))))
     println(Exp)
     Exp.eval
-    Variable("x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf(1,2,3,98,99)
+    Variable("x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf(1,2,3,98,99,4,5)
   }
 }
