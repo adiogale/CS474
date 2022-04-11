@@ -16,3 +16,4 @@ Homework of course CS474 - OOLE
 ## [Updated ClassOperations Documentation](ClassOperations.md) (for homework 3, refer this documentation).
 ## [Documentation for abstract class and interfaces](AbstractClassAndInterfaceOp.md) (for homework 3, refer this documentation).
 ## [Answeres to the questions posted for homework 3](Answers_to_the_questions_posted.md) (for homework 3, refer to this documentation).
+## [Documentation for Exception class](ExceptionOperations.md) (for homework 4, refer to this documentation).
