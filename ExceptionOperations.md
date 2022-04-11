@@ -2,12 +2,12 @@
 Homework 4 of course CS474 - OOLE
 
 ## Run tests
-Code is written in ```src/main/scala/ClassOperations.scala```. The tests are hosted in file ```src/test/scala/ClassOperationsTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
+Code is written in ```src/main/scala/ExceptionOperations.scala```. The tests are hosted in file ```src/test/scala/ExceptionOperationTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
 
 ## Imports
 To import the package, add following import statement.
 ```
-import ClassOperations.ClassDefinition.*
+import ExceptionOperations.ExceptionClass.*
 ```
 
 ## Methods and the functionality
