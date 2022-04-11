@@ -13,13 +13,14 @@ object ExceptionOperations {
   private val flag: mutable.Stack[Any] = mutable.Stack(0)
   // Reason of the Exception
   private val exception: mutable.Stack[Any] = mutable.Stack()
+  // Flag to eliminate stand-alone use of Try or Catch
+  private val TryCatchFlag: mutable.Stack[Boolean] = mutable.Stack[Boolean](false)
 
   enum ExceptionClass:
     case ExceptionClassDef(classDef: String, reason: String)
     case TryCatch(tryExp: ExceptionOperations.ExceptionClass.Try, catchExp: ExceptionOperations.ExceptionClass.Catch)
     case Try(tryExp: Any*)
     case Catch(catchExp: Any*)
-    case Throw(e: Any)
     case ThrowExpression(className: String, reason: String)
     case Condition(lhs: SetOperations, rhs: SetOperations)
     case IfElse(condition: Condition, thenExp: List[Any], elseExp: List[Any])
@@ -37,20 +38,20 @@ object ExceptionOperations {
           // evals the RHS
           val rhsVal = rhs.eval
           //Checks equality, if yes, return true, else, false
-          if(lhsVal.equals(rhsVal)) {
+          if (lhsVal.equals(rhsVal)) {
             true
           }
-          else{
+          else {
             false
           }
         // If-else construct
         case IfElse(condition, thenExp, elseExp) =>
           // If part of the construct
-          if(condition.eval.asInstanceOf[Boolean]) {
+          if (condition.eval.asInstanceOf[Boolean]) {
             // Loop over all the statements
-            for(setOperation: Any <- thenExp) {
+            for (setOperation: Any <- thenExp) {
               // Check if Throw is called or not. If yes, do not evaluate the statements.
-              if(flag.top == 0) {
+              if (flag.top == 0) {
                 // Checks each type and evaluates accordingly.
                 if (setOperation.isInstanceOf[SetOperations])
                   setOperation.asInstanceOf[SetOperations].eval
@@ -62,7 +63,7 @@ object ExceptionOperations {
             }
           }
           // else part of the construct
-          else{
+          else {
             evaluate(elseExp)
           }
 
@@ -72,10 +73,11 @@ object ExceptionOperations {
 
         //Try-catch construct
         case TryCatch(tryExp, catchExp) =>
+          TryCatchFlag.push(true)
           // Evaluate the try part
           val p = tryExp.eval
           // If Throw has been called, evaluate the catch part
-          if(flag.top == 1) {
+          if (flag.top == 1) {
             // The className is obtained from exception.
             val className = exception.pop().asInstanceOf[String]
             // Prints the reason of the exception anyway.
@@ -85,34 +87,40 @@ object ExceptionOperations {
             catchExp.eval
             // Resets the flag
             flag.pop()
+            TryCatchFlag.pop()
             // Returns the reason
             exceptionMap(className).asInstanceOf[String]
           }
           // If Throw is not called, return the try part
-          else{
+          else {
+            TryCatchFlag.pop()
             p
           }
 
         // Try part of the structure
         case Try(tryExp*) =>
-          // Loop over all the statements
-          for(op: Any <- tryExp) {
-            // Check if the Throw is called, do not evaluate the statements.
-            if(flag.top == 0) {
-              // Evaluate according to the types.
-              if (op.isInstanceOf[SetOperations])
-                op.asInstanceOf[SetOperations].eval
-              else if (op.isInstanceOf[ClassOperations.ClassDefinition])
-                op.asInstanceOf[ClassOperations.ClassDefinition].eval
-              else if (op.isInstanceOf[ExceptionOperations.ExceptionClass])
-                op.asInstanceOf[ExceptionOperations.ExceptionClass].eval
+          if (TryCatchFlag.top) {
+            // Loop over all the statements
+            for (op: Any <- tryExp) {
+              // Check if the Throw is called, do not evaluate the statements.
+              if (flag.top == 0) {
+                // Evaluate according to the types.
+                if (op.isInstanceOf[SetOperations])
+                  op.asInstanceOf[SetOperations].eval
+                else if (op.isInstanceOf[ClassOperations.ClassDefinition])
+                  op.asInstanceOf[ClassOperations.ClassDefinition].eval
+                else if (op.isInstanceOf[ExceptionOperations.ExceptionClass])
+                  op.asInstanceOf[ExceptionOperations.ExceptionClass].eval
+              }
             }
           }
           return true
 
         // catch part of the catch
         case Catch(catchExp*) =>
-          evaluate(catchExp.toList)
+          if (TryCatchFlag.top) {
+            evaluate(catchExp.toList)
+          }
 
         // Throw expression
         case ThrowExpression(className, reason) =>
