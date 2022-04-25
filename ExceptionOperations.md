@@ -1,6 +1,8 @@
 # CS474 - Aditya Ogale - 678453407
 Homework 4 of course CS474 - OOLE
 
+### For latest changes see [PartialEval_and_Optimizer.md](PartialEval_and_Optimizer.md) file!
+
 ## Run tests
 Code is written in ```src/main/scala/ExceptionOperations.scala```. The tests are hosted in file ```src/test/scala/ExceptionOperationTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
 
