@@ -2,7 +2,7 @@
 Homework 5 of course CS474 - OOLE
 
 ## Run tests
-Code is written in ```src/main/scala/ExceptionOperations.scala```. The tests are hosted in file ```src/test/scala/ExceptionOperationTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
+Code is written in ```src/main/scala/Optimizer.scala```. The tests are hosted in file ```src/test/scala/OptimizerTest.scala``` and ```src/test/scala/PartialEvalTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
 
 In this homework, I have implemented partial evaluation of the case classes and implemented optimizers as follows:
 
