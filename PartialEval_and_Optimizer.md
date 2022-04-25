@@ -21,8 +21,8 @@ In this homework, I have implemented partial evaluation of the case classes and 
     - Object: Similar to NewObject, Object will not throw error, and will return ``` Object("o1") ``` if o1 is not defined.
 
     - CallMethod: Similar to above two, CallMethod will be partially evaluated. If the method is not defined in the class, however, an error message will be returned as there is no chance of defining that method now as the class is already defined.
-
-     -IfElse: IfElse is now partially evaluated by checking the condition. If condition is not fully evaluated, thenExp and elseExp are partially evaluated and IfElse construct is returned. 
+    
+    - IfElse: IfElse is now partially evaluated by checking the condition. If condition is not fully evaluated, thenExp and elseExp are partially evaluated and IfElse construct is returned. 
     ```
     IfElse(Condition(Variable("i"), Variable("j")),List[Any](Insert("j", ValueOf(10002)), Insert("i", ValueOf(20002))),List[Any](Insert("j", ValueOf(4)))).eval
     // This will now return as following:
