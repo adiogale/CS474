@@ -47,10 +47,4 @@ class OptimizerTest extends AnyFlatSpec with Matchers {
     collectionEmpty.map(functionSetOp) should contain (Variable("x"))
   }
 
-  behavior of "if-else"
-  it should "optimize for following cases of if-else" in {
-    
-  }
-
-
 }

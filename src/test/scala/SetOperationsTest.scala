@@ -96,15 +96,7 @@ class SetOperationsTest extends AnyFlatSpec with Matchers {
     getSetFromScope("global", "y").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (3,4)
     Scope("scope1", "x", CreateSet(5,6)).eval
     getSetFromScope("scope1", "x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (5,6)
-    Scope("scope2", "x", Insert("x",ValueOf(6))).eval
-    getSetFromScope("scope2", "x").eval.asInstanceOf[mutable.Set[Any]] should contain (6)
-    Scope("scope2", "x", Insert("x",ValueOf(5))).eval
-    getSetFromScope("scope2", "x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (5,6)
-    Scope("scope2", "x", Insert("x",ValueOf(7))).eval
-    getSetFromScope("scope2", "x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (5,6,7)
-    Scope("scope1", "x", Delete("x", ValueOf(5))).eval
     getSetFromScope("scope1", "x").eval.asInstanceOf[mutable.Set[Any]] should contain (6)
-    getSetFromScope("scope2", "x").eval.asInstanceOf[mutable.Set[Any]] should contain allOf (6,5,7)
   }
 
 }
