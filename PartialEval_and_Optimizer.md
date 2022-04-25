@@ -28,3 +28,17 @@ In this homework, I have implemented partial evaluation of the case classes and 
     // This will now return as following:
     // IfElse(Condition(mutable.HashSet(9, 3, 6),Variable("j")),List(Insert("j",10002), mutable.HashSet(9, 20002, 3, 6)),List(Insert("j",4)))
     
+2. Optimizer:
+    - Following optimizations are implemented:
+    - For Intersection: 
+        - If Intersection(Variable("x"), Variable("x")) gives Variable("x")
+        - Intersection(Variable("x"), CreateSet()) i.e. Intersection with empty set gives mutable.HashSet()
+    - For Union:
+        - If Union(Variable("x"), Variable("x")) gives Variable("x")
+        - Union(Variable("x"), CreateSet()) i.e. Union with empty set gives Variable("x")
+    - For Difference:
+        - If Difference(Variable("x"), Variable("x")) gives mutable.HashSet()
+        - Difference(Variable("x"), CreateSet()) i.e. Difference with empty set gives Variable("x")
+    - For Symmetric difference:
+        - If Difference(Variable("x"), Variable("x")) gives mutable.HashSet()
+        - Difference(Variable("x"), CreateSet()) i.e. Difference with empty set gives Variable("x")
