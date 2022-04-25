@@ -17,3 +17,4 @@ Homework of course CS474 - OOLE
 ## [Documentation for abstract class and interfaces](AbstractClassAndInterfaceOp.md) (for homework 3, refer this documentation).
 ## [Answeres to the questions posted for homework 3](Answers_to_the_questions_posted.md) (for homework 3, refer to this documentation).
 ## [Documentation for Exception class](ExceptionOperations.md) (for homework 4, refer to this documentation).
+## [Documentation for Homework 5](PartialEval_and_Optimizer.md) (for homework 5, refer to this documentation).
