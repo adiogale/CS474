@@ -1,6 +1,8 @@
 # CS474 - Aditya Ogale - 678453407
 Homework 1 of course CS474 - OOLE
 
+### For latest changes see homework 5 file!
+
 ## Run tests
 Code is written in ```src/main/scala/SetOperations.scala```. The tests are hosted in file ```src/test/scala/SetOperationsTest.scala```. To run the tests, click on the icon on left panel on line where class is defined or right click on white space and click run tests.
 
