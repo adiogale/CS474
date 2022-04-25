@@ -42,3 +42,6 @@ In this homework, I have implemented partial evaluation of the case classes and 
     - For Symmetric difference:
         - If Difference(Variable("x"), Variable("x")) gives mutable.HashSet()
         - Difference(Variable("x"), CreateSet()) i.e. Difference with empty set gives Variable("x")
+    - For If-Else:
+        - If-else has been optimized such that if the condition is true, then thenExp is returned, else elseExp is returned.
+        - Test case is not implemented for demonstration as it is still in development phase.
