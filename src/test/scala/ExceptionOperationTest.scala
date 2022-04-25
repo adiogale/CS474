@@ -11,13 +11,11 @@ class ExceptionOperationTest extends AnyFlatSpec with Matchers {
   behavior of "Condition"
   it should "check if 2 set operations are equal after the evaluation. Should return true if equal else false." in {
     Assign("x", CreateSet(1, 2, 3)).eval
-    Insert("x", ValueOf(4)).eval
     Assign("y", CreateSet(1, 2, 3)).eval
-    Insert("y", ValueOf(6)).eval
-    Condition(Variable("x"), Variable("y")).eval shouldBe false
+    Condition(Variable("x"), Variable("y")).eval shouldBe true
     Insert("x", ValueOf(6)).eval
     Insert("y", ValueOf(4)).eval
-    Condition(Variable("x"), Variable("y")).eval shouldBe true
+    Condition(Variable("x"), Variable("y")).eval shouldBe false
   }
 
   behavior of "If-then"
@@ -97,7 +95,7 @@ class ExceptionOperationTest extends AnyFlatSpec with Matchers {
   it should "call catch of all outer try-catch blocks if exception occurs in inner try-catch block" in {
     ExceptionClassDef("c1", "Termination due to exhaustion").eval
     Assign("x", CreateSet(1,2,3)).eval
-    var Exp = TryCatch(
+    val Exp = TryCatch(
       Try(
         Insert("x", ValueOf(4)),
         TryCatch(

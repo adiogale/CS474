@@ -66,8 +66,8 @@ class AbstractAndInterfaceTest extends AnyFlatSpec with Matchers {
     ClassDef("c4", Fields("a", "b", "c"), Constructor(("c", CreateSet(1,2,3)), ("a", CreateSet(5,6))), Implements("i1", "i2"), ExtendAbstractClass(),
       Method("m1", Insert("a", ValueOf(1))), Method("m3", Assign("b", CreateSet(5,6,7,8))), Method("m2", Insert("c", ValueOf(4)))).eval
     NewObject("o1", "c4").eval
-    CallMethod("m1", "o1").eval
-    Object("o1").eval.asInstanceOf[mutable.Map[String, Any]]("fields").asInstanceOf[mutable.Map[String,Any]]("a").asInstanceOf[mutable.Set[Any]] should contain allOf (1,5,6)
+    CallMethod("m3", "o1").eval
+    Object("o1").eval.asInstanceOf[mutable.Map[String, Any]]("fields").asInstanceOf[mutable.Map[String,Any]]("b").asInstanceOf[mutable.Set[Any]] should contain allOf (5,6,7,8)
   }
 
   behavior of "Extending a class by an interface"
